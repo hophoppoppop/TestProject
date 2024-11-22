@@ -10,7 +10,7 @@ import {
 import ImageSliderStyle from './ImageSlider.style';
 import COLORS from '../../constants/color';
 
-export interface ImageSliderProps {
+interface ImageSliderProps {
   children: React.ReactNode;
   width?: DimensionValue;
   height?: DimensionValue;

@@ -1,14 +1,21 @@
 import React from 'react';
-import {Text, View} from 'react-native';
 import RootContainer from '../../components/RootContainer/RootContainer';
 import ImageSlider from '../../components/ImageSlider/ImageSlider';
 import {getWindowProps} from '../../helpers/layout';
 import WelcomeSlideShow from '../../templates/WelcomeScreen/WelcomeSlideShow/WelcomeSlideShow';
 import images from '../../assets/images';
 import WelcomeFooter from '../../templates/WelcomeScreen/WelcomeFooter/WelcomeFooter';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../types/router';
+import {LOGIN_SCREEN, WELCOME_SCREEN} from '../../constants/router';
 
-function OpeningPage(): React.JSX.Element {
-  const {width, height} = getWindowProps();
+type ScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  typeof WELCOME_SCREEN
+>;
+
+function WelcomeScreen({navigation}: ScreenProps): React.JSX.Element {
+  const {width} = getWindowProps();
 
   return (
     <RootContainer>
@@ -27,11 +34,23 @@ function OpeningPage(): React.JSX.Element {
           title="Lorem ipsum dolo"
           subtitle="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam malesuada ut tortor sit amet placerat. Sed semper in justo a consectetur."
           imageSource={images.LOGO_RECEIPT}
-          footerComponent={<WelcomeFooter />}
+          footerComponent={
+            <WelcomeFooter
+              toAuthButton={() => {
+                navigation.reset({
+                  routes: [
+                    {
+                      name: LOGIN_SCREEN,
+                    },
+                  ],
+                });
+              }}
+            />
+          }
         />
       </ImageSlider>
     </RootContainer>
   );
 }
 
-export default OpeningPage;
+export default WelcomeScreen;

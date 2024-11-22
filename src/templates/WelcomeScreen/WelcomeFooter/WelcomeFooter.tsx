@@ -1,17 +1,15 @@
 import {Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
-import WelcomeFooterStyle from './WelcomeFooter.style';
+import Button from '../../../components/Button/Button';
 
-interface WelcomeFooterProps {}
+interface WelcomeFooterProps {
+  toAuthButton: () => void;
+}
 
 function WelcomeFooter(props: WelcomeFooterProps) {
-  const {} = props;
+  const {toAuthButton} = props;
 
-  return (
-    <TouchableOpacity style={WelcomeFooterStyle.container}>
-      <Text style={WelcomeFooterStyle.footerText}>GET STARTED</Text>
-    </TouchableOpacity>
-  );
+  return <Button text="GET STARTED" onPress={toAuthButton} />;
 }
 
 export default WelcomeFooter;

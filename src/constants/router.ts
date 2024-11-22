@@ -1,0 +1,3 @@
+export const WELCOME_SCREEN = 'WELCOME_SCREEN';
+export const LOGIN_SCREEN = 'LOGIN_SCREEN';
+export const REGISTER_SCREEN = 'REGISTER_SCREEN';

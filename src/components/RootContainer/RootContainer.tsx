@@ -8,7 +8,7 @@ import {
 import RootContainerStyle from './RootContainer.style';
 import COLORS from '../../constants/color';
 
-export interface RootContainerProps {
+interface RootContainerProps {
   children?: React.ReactNode;
   statusBarStyle?: StatusBarStyle;
   statusBarColor?: ColorValue;
