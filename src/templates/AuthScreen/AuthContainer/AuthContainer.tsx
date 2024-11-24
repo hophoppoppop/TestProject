@@ -12,6 +12,8 @@ interface AuthContainerProps {
   helpText: string;
   clickableText: string;
   onPressClickableText?: () => void;
+  onSubmitPress?: () => void;
+  isSubmitDisabled?: boolean;
 }
 
 function AuthContainer(props: AuthContainerProps): React.JSX.Element {
@@ -24,6 +26,8 @@ function AuthContainer(props: AuthContainerProps): React.JSX.Element {
     clickableText,
     helpText,
     onPressClickableText,
+    onSubmitPress,
+    isSubmitDisabled,
   } = props;
   return (
     <View style={AuthContainerStyle.rootContainer}>
@@ -40,7 +44,11 @@ function AuthContainer(props: AuthContainerProps): React.JSX.Element {
         <View style={AuthContainerStyle.authInputContainer}>{children}</View>
       </View>
       <View style={AuthContainerStyle.buttonContainer}>
-        <Button text={buttonText} />
+        <Button
+          onPress={onSubmitPress}
+          text={buttonText}
+          disabled={isSubmitDisabled}
+        />
         <Text style={AuthContainerStyle.helpText}>
           {helpText}{' '}
           <Text

@@ -3,11 +3,11 @@ import COLORS from '../../constants/color';
 
 export default StyleSheet.create({
   container: {
-    marginTop: 30,
+    marginTop: 25,
+    marginBottom: 5,
     paddingHorizontal: 10,
-    paddingVertical: 10,
     backgroundColor: COLORS.LIGHT_BLUE,
-    borderRadius: 50,
+    borderRadius: 10,
     alignItems: 'center',
   },
   inputContainer: {
@@ -36,5 +36,8 @@ export default StyleSheet.create({
     width: 25,
     height: 25,
     marginRight: 10,
+  },
+  errorText: {
+    color: COLORS.RED,
   },
 });

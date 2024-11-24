@@ -6,7 +6,10 @@ import {
   StatusBarStyle,
 } from 'react-native';
 import RootContainerStyle from './RootContainer.style';
-import COLORS from '../../constants/color';
+import COLORS from '../../../constants/color';
+import LoaderOverlay from '../../../components/LoaderOverlay/LoaderOverlay';
+import {useAppDispatch, useAppSelector} from '../../../hooks/redux';
+import {getIsLoading} from '../../../redux/slices/appState';
 
 interface RootContainerProps {
   children?: React.ReactNode;
@@ -15,6 +18,8 @@ interface RootContainerProps {
 }
 
 function RootContainer(props: RootContainerProps): React.JSX.Element {
+  const isLoading = useAppSelector(getIsLoading);
+  const dispatch = useAppDispatch();
   const {
     children,
     statusBarColor = COLORS.WHITE,
@@ -24,6 +29,7 @@ function RootContainer(props: RootContainerProps): React.JSX.Element {
     <SafeAreaView style={RootContainerStyle.rootContainer}>
       <StatusBar barStyle={statusBarStyle} backgroundColor={statusBarColor} />
       {children}
+      <LoaderOverlay isVisible={isLoading} />
     </SafeAreaView>
   );
 }

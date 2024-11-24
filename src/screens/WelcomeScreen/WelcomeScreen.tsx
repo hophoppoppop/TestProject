@@ -1,16 +1,16 @@
 import React from 'react';
-import RootContainer from '../../components/RootContainer/RootContainer';
+import RootContainer from '../../templates/Common/RootContainer/RootContainer';
 import ImageSlider from '../../components/ImageSlider/ImageSlider';
 import {getWindowProps} from '../../helpers/layout';
 import WelcomeSlideShow from '../../templates/WelcomeScreen/WelcomeSlideShow/WelcomeSlideShow';
 import images from '../../assets/images';
 import WelcomeFooter from '../../templates/WelcomeScreen/WelcomeFooter/WelcomeFooter';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../../types/router';
+import {RootRouteParamList} from '../../types/router';
 import {LOGIN_SCREEN, WELCOME_SCREEN} from '../../constants/router';
 
 type ScreenProps = NativeStackScreenProps<
-  RootStackParamList,
+  RootRouteParamList,
   typeof WELCOME_SCREEN
 >;
 

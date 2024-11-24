@@ -1,34 +1,29 @@
-import axios, { AxiosResponse } from 'axios';
-import {MAX_RETRIES, RETRY_DELAY_MS} from '../constants/api';
+import {API_URL, MAX_RETRIES, RETRY_DELAY_MS} from '../constants/api';
+import {HTTP_METHOD} from '../types/api';
 
-export async function makeApiCall(
-  endpoints:string,
-  successCallback:(callback:AxiosResponse)=>void,
-  errorCallback:(err:Error)=>void,
-  retryCount = 0,
+export async function apiCall(
+  method: HTTP_METHOD,
+  endpoints: string,
+  body?: any,
 ) {
-  return axios
-    .get(endpoints)
-    .then(response => {
-      if (successCallback) successCallback(response);
-    })
-    .catch(error => {
-      // If the error is temporary, retry the call after a delay
-      if (retryCount < MAX_RETRIES) {
-        setTimeout(
-          ()=>{
-            makeApiCall(
-              endpoints,
-              successCallback,
-              errorCallback,
-              retryCount + 1,
-            );
-          },
-          RETRY_DELAY_MS * Math.pow(2, retryCount),
-        );
-      } else {
-        // Handle the error
-        if (errorCallback) errorCallback(error);
+  const config: RequestInit = {
+    method,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  if (body) {
+    config.body = JSON.stringify(body);
+  }
+  const resp = await fetch(API_URL + endpoints, config);
+  const respJSON = await resp.json();
+  if (resp.status === 200) {
+    return respJSON;
+  } else {
+    throw (
+      respJSON || {
+        error: resp.statusText,
       }
-    });
+    );
+  }
 }

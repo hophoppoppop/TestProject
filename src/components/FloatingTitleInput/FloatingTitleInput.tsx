@@ -3,6 +3,8 @@ import {
   Animated,
   Image,
   ImageSourcePropType,
+  KeyboardTypeOptions,
+  Text,
   TextInput,
   TouchableOpacity,
   View,
@@ -14,10 +16,22 @@ interface FloatingTitleInputProps {
   title: string;
   imageLeftSource?: ImageSourcePropType;
   secureTextEntry?: boolean;
+  keyboardType?: KeyboardTypeOptions;
+  onChangeText?: (text: string) => void;
+  errorText?: string;
+  value?: string;
 }
 
 function FloatingTitleInput(props: FloatingTitleInputProps): React.JSX.Element {
-  const {title, imageLeftSource, secureTextEntry} = props;
+  const {
+    title,
+    imageLeftSource,
+    secureTextEntry,
+    keyboardType,
+    onChangeText,
+    errorText,
+    value,
+  } = props;
   const [text, setText] = useState('');
   const [hiddenTextVisible, setHiddenTextVisible] = useState(false);
 
@@ -46,53 +60,59 @@ function FloatingTitleInput(props: FloatingTitleInputProps): React.JSX.Element {
   const floatingLabelStyle = {
     top: floatingLabelAnimation.interpolate({
       inputRange: [0, 1],
-      outputRange: [20, -12],
+      outputRange: [14, -12],
     }),
     fontSize: floatingLabelAnimation.interpolate({
       inputRange: [0, 1],
-      outputRange: [20, 16],
+      outputRange: [16, 12],
     }),
-    left: floatingLabelAnimation.interpolate({
-      inputRange: [0, 1],
-      outputRange: [imageLeftSource ? 45 : 10, imageLeftSource ? 45 : 10],
-    }),
+    left: imageLeftSource ? 50 : 15,
   };
+
   return (
-    <View style={FloatingTitleInputStyle.container}>
-      <Animated.Text
-        style={[FloatingTitleInputStyle.title, floatingLabelStyle]}>
-        {title}
-      </Animated.Text>
-      <View style={FloatingTitleInputStyle.inputContainer}>
-        {imageLeftSource ? (
-          <Image
-            style={FloatingTitleInputStyle.imageLeft}
-            source={imageLeftSource}
-          />
-        ) : null}
-        <TextInput
-          secureTextEntry={secureTextEntry && !hiddenTextVisible}
-          style={FloatingTitleInputStyle.input}
-          onChangeText={val => setText(val)}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
-        />
-        {secureTextEntry ? (
-          <TouchableOpacity
-            onPress={() => {
-              setHiddenTextVisible(!hiddenTextVisible);
-            }}>
+    <View>
+      <View style={FloatingTitleInputStyle.container}>
+        <Animated.Text
+          style={[FloatingTitleInputStyle.title, floatingLabelStyle]}>
+          {title}
+        </Animated.Text>
+        <View style={FloatingTitleInputStyle.inputContainer}>
+          {imageLeftSource ? (
             <Image
-              style={FloatingTitleInputStyle.secureImage}
-              source={
-                hiddenTextVisible
-                  ? images.ICON_HIDE_PASSWORD
-                  : images.ICON_SHOW_PASSWORD
-              }
+              style={FloatingTitleInputStyle.imageLeft}
+              source={imageLeftSource}
             />
-          </TouchableOpacity>
-        ) : null}
+          ) : null}
+          <TextInput
+            value={value}
+            keyboardType={keyboardType}
+            secureTextEntry={secureTextEntry && !hiddenTextVisible}
+            style={FloatingTitleInputStyle.input}
+            onChangeText={val => {
+              setText(val);
+              if (onChangeText) onChangeText(val);
+            }}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
+          />
+          {secureTextEntry ? (
+            <TouchableOpacity
+              onPress={() => {
+                setHiddenTextVisible(!hiddenTextVisible);
+              }}>
+              <Image
+                style={FloatingTitleInputStyle.secureImage}
+                source={
+                  hiddenTextVisible
+                    ? images.ICON_HIDE_PASSWORD
+                    : images.ICON_SHOW_PASSWORD
+                }
+              />
+            </TouchableOpacity>
+          ) : null}
+        </View>
       </View>
+      <Text style={FloatingTitleInputStyle.errorText}>{errorText}</Text>
     </View>
   );
 }
