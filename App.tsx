@@ -15,7 +15,7 @@ import {
   HOME_SCREEN,
   LOGIN_SCREEN,
   PROFILE_SCREEN,
-  PROMO_SCREEN,
+  PROMOS_SCREEN,
   REGISTER_SCREEN,
   TAB_SCREEN,
   WELCOME_SCREEN,
@@ -66,7 +66,7 @@ function App(): React.JSX.Element {
           component={HomeScreen}
         />
         <Tab.Screen
-          name={PROMO_SCREEN}
+          name={PROMOS_SCREEN}
           options={{
             tabBarLabel: 'PROMO',
             tabBarIcon: ({focused, size}) => {

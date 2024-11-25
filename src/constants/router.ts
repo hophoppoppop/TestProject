@@ -3,5 +3,5 @@ export const LOGIN_SCREEN = 'LOGIN_SCREEN';
 export const REGISTER_SCREEN = 'REGISTER_SCREEN';
 export const TAB_SCREEN = 'TAB_SCREEN';
 export const HOME_SCREEN = 'HOME_SCREEN';
-export const PROMO_SCREEN = 'PROMO_SCREEN';
+export const PROMOS_SCREEN = 'PROMOS_SCREEN';
 export const PROFILE_SCREEN = 'PROFILE_SCREEN';
