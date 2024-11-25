@@ -21,13 +21,13 @@ import {
 import RegisterScreen from './src/screens/RegisterScreen/RegisterScreen';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import HomeScreen from './src/screens/HomeScreen/HomeScreen';
-import BootSplash from 'react-native-bootsplash';
 import {navigationRef, reset} from './src/helpers/navigation';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {ASYNCSTORAGE_KEY} from './src/constants/asyncstorage';
 import {useAppDispatch} from './src/hooks/redux';
 import {setToken} from './src/redux/slices/user';
 import DrawerScreen from './src/screens/DrawerScreen/DrawerScreen';
+import {initApps} from './src/helpers/initialize';
 
 function App(): React.JSX.Element {
   const Stack = createNativeStackNavigator<RootRouteParamList>();
@@ -35,25 +35,7 @@ function App(): React.JSX.Element {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const initApps = async () => {
-      const isFirstTime = await AsyncStorage.getItem(
-        ASYNCSTORAGE_KEY.FIRST_TIME_INSTALL,
-      );
-      const isLogin = await AsyncStorage.getItem(ASYNCSTORAGE_KEY.USER_TOKEN);
-      if (isFirstTime) {
-        if (isLogin) {
-          dispatch(setToken(isLogin));
-          reset(DRAWER_SCREEN);
-        } else reset(LOGIN_SCREEN);
-      } else {
-        AsyncStorage.setItem(
-          ASYNCSTORAGE_KEY.FIRST_TIME_INSTALL,
-          'notFirstTime',
-        );
-      }
-      BootSplash.hide({fade: true});
-    };
-    initApps();
+    initApps(dispatch);
   }, []);
 
   function RootDrawer() {

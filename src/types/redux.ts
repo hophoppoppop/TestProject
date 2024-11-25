@@ -1,7 +1,9 @@
 import {store} from '../redux/store';
+import {userData} from './user';
 
 export type userReducer = {
   token: string;
+  userData?: userData;
 };
 
 export type appStateReducer = {

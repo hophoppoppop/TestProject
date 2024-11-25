@@ -15,4 +15,7 @@ export default {
   ICON_SIGNOUT: require('./icons/icon_signout.png'),
   ICON_HOME_HIGHLIGHTED: require('./icons/icon_home_highlighted.png'),
   ICON_HOME_UNHIGHLIGHTED: require('./icons/icon_home_unhighlighted.png'),
+  ICON_COUPON: require('./icons/icon_coupon.png'),
+  ICON_POINT: require('./icons/icon_point.png'),
+  ICON_QR: require('./icons/icon_qr.png'),
 };

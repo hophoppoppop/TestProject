@@ -80,9 +80,13 @@ function LoginScreen({navigation}: ScreenProps): React.JSX.Element {
             //EMAIL: eve.holt@reqres.in
             //PASSWORD: //YOU CAN PUT ANYTHING HERE
             dispatch(showLoading());
-            apiCall(HTTP_METHOD.POST, ENDPOINTS.LOGIN, {
-              password,
-              email: email.toLowerCase(),
+            apiCall({
+              method: HTTP_METHOD.POST,
+              endpoints: ENDPOINTS.LOGIN,
+              body: {
+                password,
+                email: email.toLowerCase(),
+              },
             })
               .then(callback => {
                 dispatch(setToken(callback.token));

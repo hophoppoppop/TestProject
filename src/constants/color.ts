@@ -3,8 +3,8 @@ const COLORS = {
   WHITE: '#FFF',
   GREY: '#e6e6e6',
   GRAY: '#A6AEBF',
-  BLUE: '#2d73e3',
-  LIGHT_BLUE: '#d3e8f5',
+  BLUE: '#1e83ef',
+  LIGHT_BLUE: '#e0eefe',
   RED: '#f0412e',
 };
 
