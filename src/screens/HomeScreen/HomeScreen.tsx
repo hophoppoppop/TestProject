@@ -3,9 +3,15 @@ import RootContainer from '../../templates/Common/RootContainer/RootContainer';
 import {RootRouteParamList} from '../../types/router';
 import {HOME_SCREEN} from '../../constants/router';
 import {useAppDispatch} from '../../hooks/redux';
-import {DrawerScreenProps} from '@react-navigation/drawer';
 import Header from '../../components/Header/Header';
-import {FlatList, Image, Text, TouchableOpacity, View} from 'react-native';
+import {
+  FlatList,
+  Image,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import images from '../../assets/images';
 import HomeScreenStyle from './HomeScreen.style';
 import {initLogin} from '../../helpers/initialize';
@@ -13,15 +19,22 @@ import {apiCall} from '../../helpers/api';
 import {HTTP_METHOD} from '../../types/api';
 import {ENDPOINTS, EXTERNAL_ENDPOINTS} from '../../constants/api';
 import {resourcesImage, resourcesItem} from '../../types/resources';
-import COLORS from '../../constants/color';
+import BenefitButton from '../../templates/HomeScreen/BenefitButton/BenefitButton';
+import Card from '../../components/Card/Card';
+import PromoCard from '../../templates/HomeScreen/PromoCard/PromoCard';
+import RecommendationCard from '../../templates/HomeScreen/RecommendationCard/RecommendationCard';
+import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 
-type ScreenProps = DrawerScreenProps<RootRouteParamList, typeof HOME_SCREEN>;
+type ScreenProps = BottomTabScreenProps<RootRouteParamList, typeof HOME_SCREEN>;
 
 function HomeScreen({navigation}: ScreenProps): React.JSX.Element {
   const dispatch = useAppDispatch();
   const [currPage, setCurrPage] = useState(0);
   const [data, setData] = useState<resourcesItem[]>([]);
   const [imageData, setImageData] = useState<resourcesImage[]>([]);
+  const [recommendationData, setRecommendationData] = useState<
+    resourcesImage[]
+  >([]);
 
   useEffect(() => {
     initLogin(dispatch);
@@ -55,6 +68,7 @@ function HomeScreen({navigation}: ScreenProps): React.JSX.Element {
         isThirdParty: true,
       }).then(callback => {
         setImageData(callback);
+        setRecommendationData(callback);
       });
     }
     initData();
@@ -64,19 +78,6 @@ function HomeScreen({navigation}: ScreenProps): React.JSX.Element {
   return (
     <RootContainer>
       <Header
-        leftButtonComponent={
-          <TouchableOpacity
-            onPress={() => {
-              navigation.openDrawer();
-            }}
-            style={HomeScreenStyle.drawerButton}>
-            <Image
-              style={HomeScreenStyle.drawerIcon}
-              resizeMode={'contain'}
-              source={images.ICON_HAMBURGER}
-            />
-          </TouchableOpacity>
-        }
         titleComponent={
           <View style={HomeScreenStyle.titleContainer}>
             <Image
@@ -86,38 +87,97 @@ function HomeScreen({navigation}: ScreenProps): React.JSX.Element {
             />
           </View>
         }
+        rightButtonComponent={
+          <TouchableOpacity style={HomeScreenStyle.mailButton}>
+            <Image
+              style={HomeScreenStyle.mailIcon}
+              resizeMode={'contain'}
+              source={images.ICON_NOTIFICATION}
+            />
+          </TouchableOpacity>
+        }
       />
-      <FlatList
-        data={data}
-        contentContainerStyle={HomeScreenStyle.listContentContainer}
-        renderItem={({item, index}) => {
-          return (
+      <ScrollView
+        contentContainerStyle={HomeScreenStyle.scrollViewContentContainer}>
+        <Card style={HomeScreenStyle.benefitCardContainer}>
+          <View style={HomeScreenStyle.pointContainer}>
+            <Image
+              style={HomeScreenStyle.pointImage}
+              source={images.ICON_POINT_HIGHLIGHTED}
+            />
+            <Text style={HomeScreenStyle.pointText}>144 points</Text>
+          </View>
+          <View style={HomeScreenStyle.otherFunctionContainer}>
+            <BenefitButton icon={images.ICON_COUPON} label={'Coupon'} />
+            <BenefitButton icon={images.ICON_QR} label={'Scan'} />
+          </View>
+        </Card>
+        {/* <View
+          style={{
+            flex: 1,
+            flexDirection: 'row',
+            marginTop: 20,
+            flexWrap: 'wrap',
+          }}>
+          <View
+            style={{
+              width: '25%',
+              aspectRatio: 1,
+              padding: 5,
+            }}>
             <View
-              style={[
-                HomeScreenStyle.cardContainer,
-                {
-                  backgroundColor: item.color,
-                },
-              ]}>
-              <View style={HomeScreenStyle.detailCardContainer}>
-                <Text style={HomeScreenStyle.detailNameText}>{item.name}</Text>
-                <Text style={HomeScreenStyle.dateText}>
-                  {item.pantone_value} | {item.year}
-                </Text>
+              style={{
+                flex: 1,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <View style={{flex: 1, aspectRatio: 1, backgroundColor: 'red'}}>
+                <Image
+                  style={{width: '100%', height: '100%'}}
+                  source={images.ICON_COUPON}
+                />
               </View>
-              {imageData[index] ? (
-                <View style={HomeScreenStyle.imageContainer}>
-                  <Image
-                    style={HomeScreenStyle.itemImage}
-                    resizeMode={'cover'}
-                    source={{uri: imageData[index].download_url}}
-                  />
-                </View>
-              ) : null}
+              <Text>asdf</Text>
             </View>
-          );
-        }}
-      />
+          </View>
+        </View> */}
+        <View style={HomeScreenStyle.recommendationTitleContainer}>
+          <Text style={HomeScreenStyle.categoryTitleText}>Recommendation</Text>
+          <TouchableOpacity
+            style={HomeScreenStyle.recommendationButtonContainer}>
+            <Text>See More</Text>
+            <Image
+              style={HomeScreenStyle.recommendationButtonIcon}
+              source={images.ICON_CHEVRON_RIGHT}
+            />
+          </TouchableOpacity>
+        </View>
+        <FlatList
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          data={recommendationData}
+          contentContainerStyle={
+            HomeScreenStyle.recommendationListContentContainer
+          }
+          renderItem={({item}) => {
+            return <RecommendationCard imageURL={item.download_url} />;
+          }}
+        />
+        <Text style={HomeScreenStyle.promoTitleText}>Promos</Text>
+        <FlatList
+          scrollEnabled={false}
+          data={data}
+          contentContainerStyle={HomeScreenStyle.listContentContainer}
+          renderItem={({item, index}) => {
+            return (
+              <PromoCard
+                imageURL={imageData[index]?.download_url}
+                item={item}
+              />
+            );
+          }}
+        />
+      </ScrollView>
     </RootContainer>
   );
 }

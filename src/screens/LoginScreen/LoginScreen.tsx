@@ -4,7 +4,7 @@ import images from '../../assets/images';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootRouteParamList} from '../../types/router';
 import {
-  DRAWER_SCREEN,
+  TAB_SCREEN,
   LOGIN_SCREEN,
   REGISTER_SCREEN,
 } from '../../constants/router';
@@ -97,7 +97,7 @@ function LoginScreen({navigation}: ScreenProps): React.JSX.Element {
                 navigation.reset({
                   routes: [
                     {
-                      name: DRAWER_SCREEN,
+                      name: TAB_SCREEN,
                     },
                   ],
                 });

@@ -12,42 +12,94 @@ import WelcomeScreen from './src/screens/WelcomeScreen/WelcomeScreen';
 import LoginScreen from './src/screens/LoginScreen/LoginScreen';
 import {RootRouteParamList} from './src/types/router';
 import {
-  DRAWER_SCREEN,
   HOME_SCREEN,
   LOGIN_SCREEN,
+  PROFILE_SCREEN,
+  PROMO_SCREEN,
   REGISTER_SCREEN,
+  TAB_SCREEN,
   WELCOME_SCREEN,
 } from './src/constants/router';
 import RegisterScreen from './src/screens/RegisterScreen/RegisterScreen';
-import {createDrawerNavigator} from '@react-navigation/drawer';
 import HomeScreen from './src/screens/HomeScreen/HomeScreen';
-import {navigationRef, reset} from './src/helpers/navigation';
+import {navigationRef} from './src/helpers/navigation';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {ASYNCSTORAGE_KEY} from './src/constants/asyncstorage';
 import {useAppDispatch} from './src/hooks/redux';
 import {setToken} from './src/redux/slices/user';
-import DrawerScreen from './src/screens/DrawerScreen/DrawerScreen';
 import {initApps} from './src/helpers/initialize';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import TabButton from './src/components/TabButton/TabButton';
+import images from './src/assets/images';
 
 function App(): React.JSX.Element {
   const Stack = createNativeStackNavigator<RootRouteParamList>();
-  const Drawer = createDrawerNavigator<RootRouteParamList>();
+  const Tab = createBottomTabNavigator<RootRouteParamList>();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     initApps(dispatch);
   }, []);
 
-  function RootDrawer() {
+  function RootTab() {
     return (
-      <Drawer.Navigator
+      <Tab.Navigator
         initialRouteName={HOME_SCREEN}
-        drawerContent={props => <DrawerScreen {...props} />}
         screenOptions={{
           headerShown: false,
         }}>
-        <Drawer.Screen name={HOME_SCREEN} component={HomeScreen} />
-      </Drawer.Navigator>
+        <Tab.Screen
+          name={HOME_SCREEN}
+          options={{
+            tabBarLabel: 'HOME',
+            tabBarIcon: ({focused, size}) => {
+              return (
+                <TabButton
+                  size={size}
+                  focused={focused}
+                  highlightedIcon={images.ICON_HOME_HIGHLIGHTED}
+                  unhighlightedIcon={images.ICON_HOME_UNHIGHLIGHTED}
+                />
+              );
+            },
+          }}
+          component={HomeScreen}
+        />
+        <Tab.Screen
+          name={PROMO_SCREEN}
+          options={{
+            tabBarLabel: 'PROMO',
+            tabBarIcon: ({focused, size}) => {
+              return (
+                <TabButton
+                  size={size}
+                  focused={focused}
+                  highlightedIcon={images.ICON_HOME_HIGHLIGHTED}
+                  unhighlightedIcon={images.ICON_HOME_UNHIGHLIGHTED}
+                />
+              );
+            },
+          }}
+          component={HomeScreen}
+        />
+        <Tab.Screen
+          name={PROFILE_SCREEN}
+          options={{
+            tabBarLabel: 'PROFILE',
+            tabBarIcon: ({focused, size}) => {
+              return (
+                <TabButton
+                  size={size}
+                  focused={focused}
+                  highlightedIcon={images.ICON_HOME_HIGHLIGHTED}
+                  unhighlightedIcon={images.ICON_HOME_UNHIGHLIGHTED}
+                />
+              );
+            },
+          }}
+          component={HomeScreen}
+        />
+      </Tab.Navigator>
     );
   }
 
@@ -73,7 +125,7 @@ function App(): React.JSX.Element {
             animation: 'fade',
           }}
         />
-        <Stack.Screen name={DRAWER_SCREEN} component={RootDrawer} />
+        <Stack.Screen name={TAB_SCREEN} component={RootTab} />
       </Stack.Navigator>
     );
   }

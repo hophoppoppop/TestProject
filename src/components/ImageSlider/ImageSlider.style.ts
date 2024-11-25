@@ -7,6 +7,9 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  scrollViewContainer: {
+    flex: 1,
+  },
   dot: {
     marginHorizontal: 5,
   },

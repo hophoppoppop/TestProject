@@ -55,9 +55,7 @@ function ImageSlider(props: ImageSliderProps): React.JSX.Element {
         horizontal
         onScroll={onChange}
         showsHorizontalScrollIndicator={false}
-        style={{
-          flex: 1,
-        }}>
+        style={ImageSliderStyle.scrollViewContainer}>
         {childrenArray.map((childNode, index) => {
           return (
             <View key={index.toString()} style={{width, height}}>

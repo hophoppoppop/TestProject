@@ -6,46 +6,74 @@ export default StyleSheet.create({
     paddingHorizontal: 40,
     paddingVertical: 20,
   },
-  drawerButton: {
+  mailButton: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 10,
+    padding: 7,
   },
-  drawerIcon: {
+  mailIcon: {
     flex: 1,
   },
   titleContainer: {
     height: '100%',
     aspectRatio: 3,
-    alignSelf: 'flex-end',
-    marginRight: 20,
+    marginLeft: 15,
   },
   titleLogo: {
     width: '100%',
     height: '100%',
   },
+  recommendationListContentContainer: {
+    gap: 10,
+    paddingHorizontal: 10,
+  },
   listContentContainer: {
     gap: 20,
+    paddingVertical: 10,
+  },
+  scrollViewContentContainer: {
     padding: 20,
   },
-  cardContainer: {
-    flex: 1,
-    borderRadius: 10,
+  recommendationTitleContainer: {
     flexDirection: 'row',
-    overflow: 'hidden',
+    justifyContent: 'space-between',
+    paddingVertical: 10,
   },
-  detailCardContainer: {flex: 0.6, justifyContent: 'flex-end', padding: 5},
-  detailNameText: {
+  categoryTitleText: {
     fontWeight: 'bold',
-    color: COLORS.WHITE,
-    marginLeft: 5,
+    color: COLORS.BLACK,
+    fontSize: 24,
   },
-  dateText: {
+  promoTitleText: {
+    marginTop: 20,
     fontWeight: 'bold',
-    color: COLORS.WHITE,
-    marginLeft: 5,
+    color: COLORS.BLACK,
+    fontSize: 24,
   },
-  imageContainer: {flex: 0.4, height: 150},
-  itemImage: {width: '100%', height: '100%'},
+  recommendationButtonContainer: {flexDirection: 'row', alignItems: 'center'},
+  recommendationButtonIcon: {
+    width: 15,
+    height: 15,
+    marginLeft: 5,
+    marginTop: 2,
+  },
+  benefitCardContainer: {
+    flex: 1,
+    padding: 10,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  pointContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  pointImage: {width: 30, height: 30},
+  pointText: {
+    color: COLORS.BLACK,
+    fontWeight: 'bold',
+    fontSize: 15,
+    marginLeft: 6,
+  },
+  otherFunctionContainer: {flexDirection: 'row'},
 });

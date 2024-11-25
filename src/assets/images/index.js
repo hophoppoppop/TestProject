@@ -18,4 +18,8 @@ export default {
   ICON_COUPON: require('./icons/icon_coupon.png'),
   ICON_POINT: require('./icons/icon_point.png'),
   ICON_QR: require('./icons/icon_qr.png'),
+  ICON_COUPON_HIGHLIGHTED: require('./icons/icon_coupon_highlighted.png'),
+  ICON_POINT_HIGHLIGHTED: require('./icons/icon_point_highlighted.png'),
+  ICON_QR_HIGHLIGHTED: require('./icons/icon_qr_highlighted.png'),
+  ICON_NOTIFICATION: require('./icons/icon_notification.png'),
 };

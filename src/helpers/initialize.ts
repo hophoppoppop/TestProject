@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {ASYNCSTORAGE_KEY} from '../constants/asyncstorage';
 import {setToken, setUserData} from '../redux/slices/user';
 import {reset} from './navigation';
-import {DRAWER_SCREEN, LOGIN_SCREEN} from '../constants/router';
+import {LOGIN_SCREEN, TAB_SCREEN} from '../constants/router';
 import BootSplash from 'react-native-bootsplash';
 import {AppDispatch} from '../types/redux';
 import {apiCall} from './api';
@@ -18,7 +18,7 @@ export async function initApps(dispatch: AppDispatch) {
   if (isFirstTime) {
     if (isLogin) {
       dispatch(setToken(isLogin));
-      reset(DRAWER_SCREEN);
+      reset(TAB_SCREEN);
     } else reset(LOGIN_SCREEN);
   } else {
     AsyncStorage.setItem(ASYNCSTORAGE_KEY.FIRST_TIME_INSTALL, 'notFirstTime');
