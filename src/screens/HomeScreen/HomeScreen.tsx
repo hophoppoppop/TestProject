@@ -7,6 +7,7 @@ import {apiCall} from '@helpers/api';
 import {initLogin} from '@helpers/initialize';
 import {useAppDispatch} from '@hooks/redux';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
+import BenefitSkeleton from '@skeletons/ProfileScreen/BenefitSkeleton';
 import RootContainer from '@templates/Common/RootContainer/RootContainer';
 import BenefitButton from '@templates/HomeScreen/BenefitButton/BenefitButton';
 import PromoCard from '@templates/HomeScreen/PromoCard/PromoCard';
