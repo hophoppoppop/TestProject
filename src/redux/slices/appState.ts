@@ -1,5 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {appStateReducer, RootState} from '../../types/redux';
+
+import {appStateReducer, RootState} from '../../customTypes/redux';
 
 const initialState: appStateReducer = {
   isLoading: false,

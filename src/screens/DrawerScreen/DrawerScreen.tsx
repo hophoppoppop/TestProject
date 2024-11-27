@@ -1,14 +1,10 @@
-import React from 'react';
-import RootContainer from '../../templates/Common/RootContainer/RootContainer';
-import {RootRouteParamList} from '../../types/router';
-import {HOME_SCREEN, LOGIN_SCREEN} from '../../constants/router';
-import {useAppDispatch, useAppSelector} from '../../hooks/redux';
-import {getToken, getUserData} from '../../redux/slices/user';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   DrawerContentComponentProps,
   DrawerContentScrollView,
   DrawerItem,
 } from '@react-navigation/drawer';
+import React from 'react';
 import {
   Alert,
   Image,
@@ -17,17 +13,22 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+
 import images from '../../assets/images';
-import DrawerScreenStyle from './DrawerScreen.style';
 import DrawerButton from '../../components/DrawerButton/DrawerButton';
-import COLORS from '../../constants/color';
-import ExtraFeatureContainer from '../../templates/DrawerScreen/ExtraFeatureContainer/ExtraFeatureContainer';
-import {apiCall} from '../../helpers/api';
-import {HTTP_METHOD} from '../../types/api';
 import {ENDPOINTS} from '../../constants/api';
-import {hideLoading, showLoading} from '../../redux/slices/appState';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {ASYNCSTORAGE_KEY} from '../../constants/asyncstorage';
+import COLORS from '../../constants/color';
+import {HOME_SCREEN, LOGIN_SCREEN} from '../../constants/router';
+import {HTTP_METHOD} from '../../customTypes/api';
+import {RootRouteParamList} from '../../customTypes/router';
+import {apiCall} from '../../helpers/api';
+import {useAppDispatch, useAppSelector} from '../../hooks/redux';
+import {hideLoading, showLoading} from '../../redux/slices/appState';
+import {getToken, getUserData} from '../../redux/slices/user';
+import RootContainer from '../../templates/Common/RootContainer/RootContainer';
+import ExtraFeatureContainer from '../../templates/DrawerScreen/ExtraFeatureContainer/ExtraFeatureContainer';
+import DrawerScreenStyle from './DrawerScreen.style';
 
 function DrawerScreen(props: DrawerContentComponentProps): React.JSX.Element {
   const userData = useAppSelector(getUserData);

@@ -1,5 +1,6 @@
 import {createNavigationContainerRef} from '@react-navigation/native';
-import {RootRouteParamList} from '../types/router';
+
+import {RootRouteParamList} from '../customTypes/router';
 
 export const navigationRef = createNavigationContainerRef<RootRouteParamList>();
 

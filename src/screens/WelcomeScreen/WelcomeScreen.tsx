@@ -1,13 +1,13 @@
-import React from 'react';
-import RootContainer from '../../templates/Common/RootContainer/RootContainer';
-import ImageSlider from '../../components/ImageSlider/ImageSlider';
-import {getWindowProps} from '../../helpers/layout';
-import WelcomeSlideShow from '../../templates/WelcomeScreen/WelcomeSlideShow/WelcomeSlideShow';
-import images from '../../assets/images';
-import WelcomeFooter from '../../templates/WelcomeScreen/WelcomeFooter/WelcomeFooter';
+import images from '@assets/images';
+import ImageSlider from '@components/ImageSlider/ImageSlider';
+import {LOGIN_SCREEN, WELCOME_SCREEN} from '@constants/router';
+import {RootRouteParamList} from '@customTypes/router';
+import {getWindowProps} from '@helpers/layout';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootRouteParamList} from '../../types/router';
-import {LOGIN_SCREEN, WELCOME_SCREEN} from '../../constants/router';
+import RootContainer from '@templates/Common/RootContainer/RootContainer';
+import WelcomeFooter from '@templates/WelcomeScreen/WelcomeFooter/WelcomeFooter';
+import WelcomeSlideShow from '@templates/WelcomeScreen/WelcomeSlideShow/WelcomeSlideShow';
+import React from 'react';
 
 type ScreenProps = NativeStackScreenProps<
   RootRouteParamList,

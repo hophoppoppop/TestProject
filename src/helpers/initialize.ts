@@ -1,14 +1,15 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {ASYNCSTORAGE_KEY} from '../constants/asyncstorage';
-import {setToken, setUserData} from '../redux/slices/user';
-import {reset} from './navigation';
-import {LOGIN_SCREEN, TAB_SCREEN} from '../constants/router';
-import BootSplash from 'react-native-bootsplash';
-import {AppDispatch} from '../types/redux';
-import {apiCall} from './api';
-import {ENDPOINTS} from '../constants/api';
-import {HTTP_METHOD} from '../types/api';
 import {ToastAndroid} from 'react-native';
+import BootSplash from 'react-native-bootsplash';
+
+import {ENDPOINTS} from '../constants/api';
+import {ASYNCSTORAGE_KEY} from '../constants/asyncstorage';
+import {LOGIN_SCREEN, TAB_SCREEN} from '../constants/router';
+import {HTTP_METHOD} from '../customTypes/api';
+import {AppDispatch} from '../customTypes/redux';
+import {setToken, setUserData} from '../redux/slices/user';
+import {apiCall} from './api';
+import {reset} from './navigation';
 
 export async function initApps(dispatch: AppDispatch) {
   const isFirstTime = await AsyncStorage.getItem(

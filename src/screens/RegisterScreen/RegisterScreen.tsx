@@ -1,17 +1,16 @@
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useEffect, useState} from 'react';
 import {Image, Text, View} from 'react-native';
-import RootContainer from '../../templates/Common/RootContainer/RootContainer';
+
 import images from '../../assets/images';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootRouteParamList} from '../../types/router';
-import {LOGIN_SCREEN, REGISTER_SCREEN} from '../../constants/router';
 import FloatingTitleInput from '../../components/FloatingTitleInput/FloatingTitleInput';
 import KeyboardAvoidingComponent from '../../components/KeyboardAvoidingComponent/KeyboardAvoidingComponent';
-import LoginScreenStyle from './RegisterScreen.style';
-import AuthContainer from '../../templates/AuthScreen/AuthContainer/AuthContainer';
-import {apiCall} from '../../helpers/api';
-import {HTTP_METHOD} from '../../types/api';
 import {API_URL, ENDPOINTS} from '../../constants/api';
+import {LOGIN_SCREEN, REGISTER_SCREEN} from '../../constants/router';
+import {HTTP_METHOD} from '../../customTypes/api';
+import {registerErrors} from '../../customTypes/form';
+import {RootRouteParamList} from '../../customTypes/router';
+import {apiCall} from '../../helpers/api';
 import {
   checkIsFormError,
   emailValidation,
@@ -19,8 +18,10 @@ import {
   initFormError,
   multipleValidation,
 } from '../../helpers/validation';
-import {registerErrors} from '../../types/form';
 import useDidMountEffect from '../../hooks/layout';
+import AuthContainer from '../../templates/AuthScreen/AuthContainer/AuthContainer';
+import RootContainer from '../../templates/Common/RootContainer/RootContainer';
+import LoginScreenStyle from './RegisterScreen.style';
 
 type ScreenProps = NativeStackScreenProps<
   RootRouteParamList,

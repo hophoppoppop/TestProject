@@ -5,12 +5,15 @@
  * @format
  */
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React, {useEffect} from 'react';
-import WelcomeScreen from './src/screens/WelcomeScreen/WelcomeScreen';
-import LoginScreen from './src/screens/LoginScreen/LoginScreen';
-import {RootRouteParamList} from './src/types/router';
+
+import images from './src/assets/images';
+import TabButton from './src/components/TabButton/TabButton';
+import {ASYNCSTORAGE_KEY} from './src/constants/asyncstorage';
 import {
   HOME_SCREEN,
   LOGIN_SCREEN,
@@ -20,17 +23,15 @@ import {
   TAB_SCREEN,
   WELCOME_SCREEN,
 } from './src/constants/router';
-import RegisterScreen from './src/screens/RegisterScreen/RegisterScreen';
-import HomeScreen from './src/screens/HomeScreen/HomeScreen';
+import {RootRouteParamList} from './src/customTypes/router';
+import {initApps} from './src/helpers/initialize';
 import {navigationRef} from './src/helpers/navigation';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {ASYNCSTORAGE_KEY} from './src/constants/asyncstorage';
 import {useAppDispatch} from './src/hooks/redux';
 import {setToken} from './src/redux/slices/user';
-import {initApps} from './src/helpers/initialize';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import TabButton from './src/components/TabButton/TabButton';
-import images from './src/assets/images';
+import HomeScreen from './src/screens/HomeScreen/HomeScreen';
+import LoginScreen from './src/screens/LoginScreen/LoginScreen';
+import RegisterScreen from './src/screens/RegisterScreen/RegisterScreen';
+import WelcomeScreen from './src/screens/WelcomeScreen/WelcomeScreen';
 
 function App(): React.JSX.Element {
   const Stack = createNativeStackNavigator<RootRouteParamList>();
