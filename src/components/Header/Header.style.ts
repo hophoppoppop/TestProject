@@ -12,4 +12,10 @@ export default StyleSheet.create({
   leftContainer: {flex: 0.2},
   middleContainer: {flex: 1},
   rightContainer: {flex: 0.2},
+  titleText: {
+    textAlign: 'center',
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: COLORS.BLACK,
+  },
 });

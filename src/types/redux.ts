@@ -3,6 +3,7 @@ import {userData} from './user';
 
 export type userReducer = {
   token: string;
+  id: string;
   userData?: userData;
 };
 

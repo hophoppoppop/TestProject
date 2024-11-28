@@ -1,10 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {Image, Text, View} from 'react-native';
+import {Image, Text, ToastAndroid, View} from 'react-native';
 import RootContainer from '../../templates/Common/RootContainer/RootContainer';
 import images from '../../assets/images';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootRouteParamList} from '../../types/router';
-import {LOGIN_SCREEN, REGISTER_SCREEN} from '../../constants/router';
+import {
+  LOGIN_SCREEN,
+  REGISTER_SCREEN,
+  TAB_SCREEN,
+} from '../../constants/router';
 import FloatingTitleInput from '../../components/FloatingTitleInput/FloatingTitleInput';
 import KeyboardAvoidingComponent from '../../components/KeyboardAvoidingComponent/KeyboardAvoidingComponent';
 import LoginScreenStyle from './RegisterScreen.style';
@@ -21,6 +25,11 @@ import {
 } from '../../helpers/validation';
 import {registerErrors} from '../../types/form';
 import useDidMountEffect from '../../hooks/layout';
+import {useAppDispatch} from '../../hooks/redux';
+import {hideLoading, showLoading} from '../../redux/slices/appState';
+import {setId, setToken} from '../../redux/slices/user';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {ASYNCSTORAGE_KEY} from '../../constants/asyncstorage';
 
 type ScreenProps = NativeStackScreenProps<
   RootRouteParamList,
@@ -32,6 +41,7 @@ function RegisterScreen({navigation}: ScreenProps): React.JSX.Element {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<registerErrors>({});
+  const dispatch = useAppDispatch();
 
   useDidMountEffect(() => {
     let tempErrors = initFormError<registerErrors>(errors, 'username');
@@ -44,7 +54,7 @@ function RegisterScreen({navigation}: ScreenProps): React.JSX.Element {
 
   useDidMountEffect(() => {
     let tempErrors = initFormError<registerErrors>(errors, 'email');
-    tempErrors.password = multipleValidation(
+    tempErrors.email = multipleValidation(
       [emptyValidation(email), emailValidation(email)],
       ['Email Cannot Empty!', 'Email not Valid!'],
     );
@@ -75,26 +85,47 @@ function RegisterScreen({navigation}: ScreenProps): React.JSX.Element {
           }}
           isSubmitDisabled={checkIsFormError(errors)}
           onSubmitPress={() => {
-            // apiCall(
-            //   HTTP_METHOD.POST,
-            //   ENDPOINTS.REGISTER,
-            //   {
-            //     username,
-            //     password,
-            //     email,
-            //   },
-            //   {
-            //     headers: {
-            //       'Content-Type': 'application/json',
-            //     },
-            //   },
-            // )
-            //   .then(callback => {
-            //     console.log(callback.data);
-            //   })
-            //   .catch(reason => {
-            //     console.log(reason);
-            //   });
+            //REQRES.IN TEST ID
+            //EMAIL: eve.holt@reqres.in
+            //PASSWORD: //YOU CAN PUT ANYTHING HERE
+            //USERNAME: //YOU CAN PUT ANYTHING HERE
+            dispatch(showLoading());
+            apiCall({
+              method: HTTP_METHOD.POST,
+              endpoints: ENDPOINTS.REGISTER,
+              body: {
+                // username, //NOT USED BECAUSE MAKE REQRES API ERROR
+                password,
+                email: email.toLowerCase(),
+              },
+            })
+              .then(callback => {
+                const userID = callback.id.toString();
+                dispatch(setToken(callback.token));
+                dispatch(setId(userID));
+                AsyncStorage.setItem(
+                  ASYNCSTORAGE_KEY.USER_TOKEN,
+                  callback.token,
+                );
+                AsyncStorage.setItem(ASYNCSTORAGE_KEY.USER_ID, userID);
+                navigation.reset({
+                  routes: [
+                    {
+                      name: TAB_SCREEN,
+                    },
+                  ],
+                });
+              })
+              .catch(reason => {
+                ToastAndroid.showWithGravity(
+                  reason.error || 'Connection error, please try again later!',
+                  ToastAndroid.LONG,
+                  20,
+                );
+              })
+              .finally(() => {
+                dispatch(hideLoading());
+              });
           }}>
           <FloatingTitleInput
             imageLeftSource={images.ICON_USERNAME}

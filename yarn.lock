@@ -6368,6 +6368,11 @@ react-native-bootsplash@^6.3.1:
     ts-dedent "^2.2.0"
     xml-formatter "^3.6.3"
 
+react-native-device-info@^14.0.1:
+  version "14.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-device-info/-/react-native-device-info-14.0.1.tgz#88b0246be7b5eec00f16843306ac95244b23ceb9"
+  integrity sha512-/ygggNdYgddjEnWxaNOwrL8bT9u8iJXCdz/CKpQi61SptIMmlCXmn125ey4rr0CTK/YIVpL6kZhVFInnNo+Q3w==
+
 react-native-drawer-layout@^4.0.2:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/react-native-drawer-layout/-/react-native-drawer-layout-4.0.2.tgz#b12b4133c0a52b5b820d8d506156b4f6092a45f2"

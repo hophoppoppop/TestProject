@@ -1,10 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React, {useEffect} from 'react';
@@ -23,14 +16,13 @@ import {
 import RegisterScreen from './src/screens/RegisterScreen/RegisterScreen';
 import HomeScreen from './src/screens/HomeScreen/HomeScreen';
 import {navigationRef} from './src/helpers/navigation';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {ASYNCSTORAGE_KEY} from './src/constants/asyncstorage';
 import {useAppDispatch} from './src/hooks/redux';
-import {setToken} from './src/redux/slices/user';
 import {initApps} from './src/helpers/initialize';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import TabButton from './src/components/TabButton/TabButton';
 import images from './src/assets/images';
+import PromosScreen from './src/screens/PromosScreen/PromosScreen';
+import ProfileScreen from './src/screens/ProfileScreen/ProfileScreen';
 
 function App(): React.JSX.Element {
   const Stack = createNativeStackNavigator<RootRouteParamList>();
@@ -74,13 +66,13 @@ function App(): React.JSX.Element {
                 <TabButton
                   size={size}
                   focused={focused}
-                  highlightedIcon={images.ICON_HOME_HIGHLIGHTED}
-                  unhighlightedIcon={images.ICON_HOME_UNHIGHLIGHTED}
+                  highlightedIcon={images.ICON_PROMO_HIGHLIGHTED}
+                  unhighlightedIcon={images.ICON_PROMO_UNHIGHLIGHTED}
                 />
               );
             },
           }}
-          component={HomeScreen}
+          component={PromosScreen}
         />
         <Tab.Screen
           name={PROFILE_SCREEN}
@@ -91,13 +83,13 @@ function App(): React.JSX.Element {
                 <TabButton
                   size={size}
                   focused={focused}
-                  highlightedIcon={images.ICON_HOME_HIGHLIGHTED}
-                  unhighlightedIcon={images.ICON_HOME_UNHIGHLIGHTED}
+                  highlightedIcon={images.ICON_PROFILE_HIGHLIGHTED}
+                  unhighlightedIcon={images.ICON_PROFILE_UNHIGHLIGHTED}
                 />
               );
             },
           }}
-          component={HomeScreen}
+          component={ProfileScreen}
         />
       </Tab.Navigator>
     );

@@ -25,7 +25,9 @@ function Header(props: ButtonProps) {
       {leftButtonComponent ? (
         <View style={HeaderStyle.leftContainer}>{leftButtonComponent}</View>
       ) : null}
-      <View style={HeaderStyle.middleContainer}>{titleComponent || title}</View>
+      <View style={HeaderStyle.middleContainer}>
+        {titleComponent || <Text style={HeaderStyle.titleText}>{title}</Text>}
+      </View>
       {rightButtonComponent ? (
         <View style={HeaderStyle.rightContainer}>{rightButtonComponent}</View>
       ) : null}

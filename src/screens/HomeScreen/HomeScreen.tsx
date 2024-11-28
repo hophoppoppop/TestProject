@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import RootContainer from '../../templates/Common/RootContainer/RootContainer';
 import {RootRouteParamList} from '../../types/router';
-import {HOME_SCREEN} from '../../constants/router';
+import {HOME_SCREEN, PROMOS_SCREEN} from '../../constants/router';
 import {useAppDispatch} from '../../hooks/redux';
 import Header from '../../components/Header/Header';
 import {
@@ -24,12 +24,12 @@ import Card from '../../components/Card/Card';
 import PromoCard from '../../templates/HomeScreen/PromoCard/PromoCard';
 import RecommendationCard from '../../templates/HomeScreen/RecommendationCard/RecommendationCard';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
+import CategoryTitle from '../../templates/HomeScreen/CategoryTitle/CategoryTitle';
 
 type ScreenProps = BottomTabScreenProps<RootRouteParamList, typeof HOME_SCREEN>;
 
 function HomeScreen({navigation}: ScreenProps): React.JSX.Element {
   const dispatch = useAppDispatch();
-  const [currPage, setCurrPage] = useState(0);
   const [data, setData] = useState<resourcesItem[]>([]);
   const [imageData, setImageData] = useState<resourcesImage[]>([]);
   const [recommendationData, setRecommendationData] = useState<
@@ -45,7 +45,7 @@ function HomeScreen({navigation}: ScreenProps): React.JSX.Element {
         endpoints: ENDPOINTS.RESOURCES,
         body: {
           query: {
-            page: currPage + 1,
+            page: 1,
             per_page: 5,
           },
         },
@@ -61,7 +61,7 @@ function HomeScreen({navigation}: ScreenProps): React.JSX.Element {
         endpoints: EXTERNAL_ENDPOINTS.IMAGES,
         body: {
           query: {
-            page: currPage + startpoint + 1,
+            page: startpoint + 1,
             limit: 5,
           },
         },
@@ -100,58 +100,19 @@ function HomeScreen({navigation}: ScreenProps): React.JSX.Element {
       <ScrollView
         contentContainerStyle={HomeScreenStyle.scrollViewContentContainer}>
         <Card style={HomeScreenStyle.benefitCardContainer}>
-          <View style={HomeScreenStyle.pointContainer}>
+          <TouchableOpacity style={HomeScreenStyle.pointContainer}>
             <Image
               style={HomeScreenStyle.pointImage}
               source={images.ICON_POINT_HIGHLIGHTED}
             />
             <Text style={HomeScreenStyle.pointText}>144 points</Text>
-          </View>
+          </TouchableOpacity>
           <View style={HomeScreenStyle.otherFunctionContainer}>
             <BenefitButton icon={images.ICON_COUPON} label={'Coupon'} />
             <BenefitButton icon={images.ICON_QR} label={'Scan'} />
           </View>
         </Card>
-        {/* <View
-          style={{
-            flex: 1,
-            flexDirection: 'row',
-            marginTop: 20,
-            flexWrap: 'wrap',
-          }}>
-          <View
-            style={{
-              width: '25%',
-              aspectRatio: 1,
-              padding: 5,
-            }}>
-            <View
-              style={{
-                flex: 1,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-              <View style={{flex: 1, aspectRatio: 1, backgroundColor: 'red'}}>
-                <Image
-                  style={{width: '100%', height: '100%'}}
-                  source={images.ICON_COUPON}
-                />
-              </View>
-              <Text>asdf</Text>
-            </View>
-          </View>
-        </View> */}
-        <View style={HomeScreenStyle.recommendationTitleContainer}>
-          <Text style={HomeScreenStyle.categoryTitleText}>Recommendation</Text>
-          <TouchableOpacity
-            style={HomeScreenStyle.recommendationButtonContainer}>
-            <Text>See More</Text>
-            <Image
-              style={HomeScreenStyle.recommendationButtonIcon}
-              source={images.ICON_CHEVRON_RIGHT}
-            />
-          </TouchableOpacity>
-        </View>
+        <CategoryTitle label={'Recommendation'} />
         <FlatList
           horizontal
           showsHorizontalScrollIndicator={false}
@@ -163,7 +124,12 @@ function HomeScreen({navigation}: ScreenProps): React.JSX.Element {
             return <RecommendationCard imageURL={item.download_url} />;
           }}
         />
-        <Text style={HomeScreenStyle.promoTitleText}>Promos</Text>
+        <CategoryTitle
+          label={'Promos'}
+          onPress={() => {
+            navigation.navigate(PROMOS_SCREEN);
+          }}
+        />
         <FlatList
           scrollEnabled={false}
           data={data}
