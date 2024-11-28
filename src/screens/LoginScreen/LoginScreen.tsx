@@ -1,19 +1,22 @@
-import React, {useState} from 'react';
-import RootContainer from '../../templates/Common/RootContainer/RootContainer';
-import images from '../../assets/images';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootRouteParamList} from '../../types/router';
-import {
-  TAB_SCREEN,
-  LOGIN_SCREEN,
-  REGISTER_SCREEN,
-} from '../../constants/router';
+import React, {useState} from 'react';
+import {ToastAndroid} from 'react-native';
+
+import images from '../../assets/images';
 import FloatingTitleInput from '../../components/FloatingTitleInput/FloatingTitleInput';
 import KeyboardAvoidingComponent from '../../components/KeyboardAvoidingComponent/KeyboardAvoidingComponent';
-import LoginScreenStyle from './LoginScreen.style';
-import AuthContainer from '../../templates/AuthScreen/AuthContainer/AuthContainer';
-import {loginErrors} from '../../types/form';
-import useDidMountEffect from '../../hooks/layout';
+import {ENDPOINTS} from '../../constants/api';
+import {ASYNCSTORAGE_KEY} from '../../constants/asyncstorage';
+import {
+  LOGIN_SCREEN,
+  REGISTER_SCREEN,
+  TAB_SCREEN,
+} from '../../constants/router';
+import {HTTP_METHOD} from '../../customTypes/api';
+import {loginErrors} from '../../customTypes/form';
+import {RootRouteParamList} from '../../customTypes/router';
+import {apiCall} from '../../helpers/api';
 import {
   checkIsFormError,
   emailValidation,
@@ -21,15 +24,13 @@ import {
   initFormError,
   multipleValidation,
 } from '../../helpers/validation';
-import {ENDPOINTS} from '../../constants/api';
-import {HTTP_METHOD} from '../../types/api';
-import {apiCall} from '../../helpers/api';
+import useDidMountEffect from '../../hooks/layout';
 import {useAppDispatch} from '../../hooks/redux';
-import {setToken} from '../../redux/slices/user';
-import {ToastAndroid} from 'react-native';
 import {hideLoading, showLoading} from '../../redux/slices/appState';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {ASYNCSTORAGE_KEY} from '../../constants/asyncstorage';
+import {setToken} from '../../redux/slices/user';
+import AuthContainer from '../../templates/AuthScreen/AuthContainer/AuthContainer';
+import RootContainer from '../../templates/Common/RootContainer/RootContainer';
+import LoginScreenStyle from './LoginScreen.style';
 
 type ScreenProps = NativeStackScreenProps<
   RootRouteParamList,

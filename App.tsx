@@ -1,9 +1,5 @@
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import React, {useEffect} from 'react';
-import WelcomeScreen from './src/screens/WelcomeScreen/WelcomeScreen';
-import LoginScreen from './src/screens/LoginScreen/LoginScreen';
-import {RootRouteParamList} from './src/types/router';
+import images from '@assets/images';
+import TabButton from '@components/TabButton/TabButton';
 import {
   HOME_SCREEN,
   LOGIN_SCREEN,
@@ -12,17 +8,21 @@ import {
   REGISTER_SCREEN,
   TAB_SCREEN,
   WELCOME_SCREEN,
-} from './src/constants/router';
-import RegisterScreen from './src/screens/RegisterScreen/RegisterScreen';
-import HomeScreen from './src/screens/HomeScreen/HomeScreen';
-import {navigationRef} from './src/helpers/navigation';
-import {useAppDispatch} from './src/hooks/redux';
-import {initApps} from './src/helpers/initialize';
+} from '@constants/router';
+import {RootRouteParamList} from '@customTypes/router';
+import {initApps} from '@helpers/initialize';
+import {navigationRef} from '@helpers/navigation';
+import {useAppDispatch} from '@hooks/redux';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import TabButton from './src/components/TabButton/TabButton';
-import images from './src/assets/images';
-import PromosScreen from './src/screens/PromosScreen/PromosScreen';
-import ProfileScreen from './src/screens/ProfileScreen/ProfileScreen';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import HomeScreen from '@screens/HomeScreen/HomeScreen';
+import LoginScreen from '@screens/LoginScreen/LoginScreen';
+import ProfileScreen from '@screens/ProfileScreen/ProfileScreen';
+import PromosScreen from '@screens/PromosScreen/PromosScreen';
+import RegisterScreen from '@screens/RegisterScreen/RegisterScreen';
+import WelcomeScreen from '@screens/WelcomeScreen/WelcomeScreen';
+import React, {useEffect} from 'react';
 
 function App(): React.JSX.Element {
   const Stack = createNativeStackNavigator<RootRouteParamList>();

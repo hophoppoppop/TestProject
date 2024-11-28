@@ -1,9 +1,16 @@
-import React, {useEffect, useState} from 'react';
-import RootContainer from '../../templates/Common/RootContainer/RootContainer';
-import {RootRouteParamList} from '../../types/router';
-import {HOME_SCREEN, PROMOS_SCREEN} from '../../constants/router';
-import {useAppDispatch} from '../../hooks/redux';
-import Header from '../../components/Header/Header';
+import images from '@assets/images';
+import Header from '@components/Header/Header';
+import {ENDPOINTS, EXTERNAL_ENDPOINTS} from '@constants/api';
+import {HOME_SCREEN, PROMOS_SCREEN} from '@constants/router';
+import {HTTP_METHOD} from '@customTypes/api';
+import {resourcesImage, resourcesItem} from '@customTypes/resources';
+import {RootRouteParamList} from '@customTypes/router';
+import {apiCall} from '@helpers/api';
+import {initLogin} from '@helpers/initialize';
+import {useAppDispatch} from '@hooks/redux';
+import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
+import RootContainer from '@templates/Common/RootContainer/RootContainer';
+import {useEffect, useState} from 'react';
 import {
   FlatList,
   Image,
@@ -12,19 +19,12 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import images from '../../assets/images';
 import HomeScreenStyle from './HomeScreen.style';
-import {initLogin} from '../../helpers/initialize';
-import {apiCall} from '../../helpers/api';
-import {HTTP_METHOD} from '../../types/api';
-import {ENDPOINTS, EXTERNAL_ENDPOINTS} from '../../constants/api';
-import {resourcesImage, resourcesItem} from '../../types/resources';
-import BenefitButton from '../../templates/HomeScreen/BenefitButton/BenefitButton';
-import Card from '../../components/Card/Card';
-import PromoCard from '../../templates/HomeScreen/PromoCard/PromoCard';
-import RecommendationCard from '../../templates/HomeScreen/RecommendationCard/RecommendationCard';
-import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
-import CategoryTitle from '../../templates/HomeScreen/CategoryTitle/CategoryTitle';
+import Card from '@components/Card/Card';
+import BenefitButton from '@templates/HomeScreen/BenefitButton/BenefitButton';
+import CategoryTitle from '@templates/HomeScreen/CategoryTitle/CategoryTitle';
+import RecommendationCard from '@templates/HomeScreen/RecommendationCard/RecommendationCard';
+import PromoCard from '@templates/HomeScreen/PromoCard/PromoCard';
 
 type ScreenProps = BottomTabScreenProps<RootRouteParamList, typeof HOME_SCREEN>;
 

@@ -1,6 +1,6 @@
 import {API_URL, BASIC_TOKEN} from '../constants/api';
+import {HTTP_METHOD} from '../customTypes/api';
 import {store} from '../redux/store';
-import {HTTP_METHOD} from '../types/api';
 
 export async function apiCall(props: {
   method: HTTP_METHOD;

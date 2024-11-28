@@ -1,4 +1,9 @@
 import {
+  DrawerContentComponentProps,
+  DrawerItem,
+} from '@react-navigation/drawer';
+import React from 'react';
+import {
   Image,
   ImageSourcePropType,
   StyleProp,
@@ -8,13 +13,9 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import React from 'react';
+
+import {RootRouteParamList} from '../../customTypes/router';
 import DrawerButtonStyle from './DrawerButton.style';
-import {
-  DrawerContentComponentProps,
-  DrawerItem,
-} from '@react-navigation/drawer';
-import {RootRouteParamList} from '../../types/router';
 
 interface DrawerButtonProps extends DrawerContentComponentProps {
   label: string;
