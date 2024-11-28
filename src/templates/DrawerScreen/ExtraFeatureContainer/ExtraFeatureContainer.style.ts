@@ -1,5 +1,5 @@
+import COLORS from '@constants/color';
 import {StyleSheet} from 'react-native';
-import COLORS from '../../../constants/color';
 
 export default StyleSheet.create({
   extraSubContainer: {flex: 1, alignItems: 'center', paddingHorizontal: 10},

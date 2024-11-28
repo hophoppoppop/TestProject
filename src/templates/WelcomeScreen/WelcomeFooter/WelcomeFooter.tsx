@@ -1,6 +1,6 @@
-import {Text, TouchableOpacity, View} from 'react-native';
+import Button from '@components/Button/Button';
 import React from 'react';
-import Button from '../../../components/Button/Button';
+import {Text, TouchableOpacity, View} from 'react-native';
 
 interface WelcomeFooterProps {
   toAuthButton: () => void;

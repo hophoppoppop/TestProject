@@ -1,16 +1,13 @@
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import React, {useState} from 'react';
-import {ToastAndroid} from 'react-native';
-
-import {setId, setToken} from '@redux/slices/user';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import images from '@assets/images';
+import FloatingTitleInput from '@components/FloatingTitleInput/FloatingTitleInput';
+import KeyboardAvoidingComponent from '@components/KeyboardAvoidingComponent/KeyboardAvoidingComponent';
+import {ENDPOINTS} from '@constants/api';
 import {ASYNCSTORAGE_KEY} from '@constants/asyncstorage';
-import {hideLoading, showLoading} from '@redux/slices/appState';
-import {useAppDispatch} from '@hooks/redux';
-import {RootRouteParamList} from '@customTypes/router';
 import {LOGIN_SCREEN, REGISTER_SCREEN, TAB_SCREEN} from '@constants/router';
-import useDidMountEffect from '@hooks/layout';
+import {HTTP_METHOD} from '@customTypes/api';
 import {registerErrors} from '@customTypes/form';
+import {RootRouteParamList} from '@customTypes/router';
+import {apiCall} from '@helpers/api';
 import {
   checkIsFormError,
   emailValidation,
@@ -18,15 +15,17 @@ import {
   initFormError,
   multipleValidation,
 } from '@helpers/validation';
+import useDidMountEffect from '@hooks/layout';
+import {useAppDispatch} from '@hooks/redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {hideLoading, showLoading} from '@redux/slices/appState';
+import {setId, setToken} from '@redux/slices/user';
 import LoginScreenStyle from '@screens/LoginScreen/LoginScreen.style';
-import RootContainer from '@templates/Common/RootContainer/RootContainer';
-import KeyboardAvoidingComponent from '@components/KeyboardAvoidingComponent/KeyboardAvoidingComponent';
 import AuthContainer from '@templates/AuthScreen/AuthContainer/AuthContainer';
-import images from '@assets/images';
-import {apiCall} from '@helpers/api';
-import {HTTP_METHOD} from '@customTypes/api';
-import {ENDPOINTS} from '@constants/api';
-import FloatingTitleInput from '@components/FloatingTitleInput/FloatingTitleInput';
+import RootContainer from '@templates/Common/RootContainer/RootContainer';
+import React, {useState} from 'react';
+import {ToastAndroid} from 'react-native';
 
 type ScreenProps = NativeStackScreenProps<
   RootRouteParamList,
@@ -113,12 +112,8 @@ function RegisterScreen({navigation}: ScreenProps): React.JSX.Element {
                   ],
                 });
               })
-              .catch(reason => {
-                ToastAndroid.showWithGravity(
-                  reason.error || 'Connection error, please try again later!',
-                  ToastAndroid.LONG,
-                  20,
-                );
+              .catch(err => {
+                console.log(err);
               })
               .finally(() => {
                 dispatch(hideLoading());

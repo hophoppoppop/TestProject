@@ -1,5 +1,5 @@
-import images from '../assets/images';
-import {PROFILE_ACTIONS} from '../types/profile';
+import images from '@assets/images';
+import {PROFILE_ACTIONS} from '@customTypes/profile';
 
 export const PROFILE_MENU = [
   {

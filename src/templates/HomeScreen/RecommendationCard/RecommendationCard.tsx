@@ -1,8 +1,8 @@
+import Card from '@components/Card/Card';
+import {resourcesItem} from '@customTypes/resources';
 import React from 'react';
 import {Image, ImageBackground, Text, View} from 'react-native';
 
-import Card from '../../../components/Card/Card';
-import {resourcesItem} from '../../../customTypes/resources';
 import RecommendationCardStyle from './RecommendationCard.style';
 
 interface RecommendationCardProps {

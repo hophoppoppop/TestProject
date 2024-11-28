@@ -1,12 +1,12 @@
 import {
   HOME_SCREEN,
   LOGIN_SCREEN,
+  PROFILE_SCREEN,
+  PROMOS_SCREEN,
   REGISTER_SCREEN,
   TAB_SCREEN,
   WELCOME_SCREEN,
-  PROFILE_SCREEN,
-  PROMOS_SCREEN,
-} from '../constants/router';
+} from '@constants/router';
 
 export type RootRouteParamList = {
   [WELCOME_SCREEN]: undefined;

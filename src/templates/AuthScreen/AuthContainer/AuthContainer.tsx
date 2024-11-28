@@ -1,6 +1,7 @@
+import Button from '@components/Button/Button';
 import React from 'react';
 import {Image, ImageSourcePropType, Text, View} from 'react-native';
-import Button from '../../../components/Button/Button';
+
 import AuthContainerStyle from './AuthContainer.style';
 
 interface AuthContainerProps {

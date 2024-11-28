@@ -16,7 +16,7 @@ module.exports = {
           '.ts',
           '.tsx',
         ],
-        root: ['.'],
+        root: ['./'],
         alias: {
           '@assets': './src/assets',
           '@components': './src/components',
@@ -27,7 +27,7 @@ module.exports = {
           '@screens': './src/screens',
           '@skeletons': './src/skeletons',
           '@templates': './src/templates',
-          '@customTypes': './src/types',
+          '@customTypes': './src/customTypes',
         },
       },
     ],

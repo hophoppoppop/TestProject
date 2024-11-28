@@ -1,8 +1,8 @@
+import Card from '@components/Card/Card';
+import {resourcesItem} from '@customTypes/resources';
 import React from 'react';
 import {Image, Text, View} from 'react-native';
 
-import Card from '../../../components/Card/Card';
-import {resourcesItem} from '../../../customTypes/resources';
 import PromoCardStyle from './PromoCard.style';
 
 interface PromoCardProps {

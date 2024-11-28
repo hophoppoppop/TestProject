@@ -1,3 +1,4 @@
+import COLORS from '@constants/color';
 import React, {useState} from 'react';
 import {
   ColorValue,
@@ -7,8 +8,8 @@ import {
   Text,
   View,
 } from 'react-native';
+
 import ImageSliderStyle from './ImageSlider.style';
-import COLORS from '../../constants/color';
 
 interface ImageSliderProps {
   children: React.ReactNode;

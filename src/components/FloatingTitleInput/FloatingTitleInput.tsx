@@ -1,3 +1,4 @@
+import images from '@assets/images';
 import React, {useRef, useState} from 'react';
 import {
   Animated,
@@ -9,8 +10,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+
 import FloatingTitleInputStyle from './FloatingTitleInput.style';
-import images from '../../assets/images';
 
 interface FloatingTitleInputProps {
   title: string;
@@ -71,7 +72,11 @@ function FloatingTitleInput(props: FloatingTitleInputProps): React.JSX.Element {
 
   return (
     <View>
-      <View style={FloatingTitleInputStyle.container}>
+      <View
+        style={[
+          FloatingTitleInputStyle.container,
+          errorText ? FloatingTitleInputStyle.containerError : null,
+        ]}>
         <Animated.Text
           style={[FloatingTitleInputStyle.title, floatingLabelStyle]}>
           {title}

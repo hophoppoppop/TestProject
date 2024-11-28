@@ -1,6 +1,7 @@
-import {ActivityIndicator, Modal, View} from 'react-native';
+import COLORS from '@constants/color';
 import React from 'react';
-import COLORS from '../../constants/color';
+import {ActivityIndicator, Modal, View} from 'react-native';
+
 import LoadingOverlayStyle from './LoaderOverlay.style';
 
 interface LoaderOverlayProps {

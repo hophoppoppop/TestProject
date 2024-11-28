@@ -1,3 +1,5 @@
+import Button from '@components/Button/Button';
+import React from 'react';
 import {
   Image,
   ImageSourcePropType,
@@ -5,8 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
-import Button from '../../../components/Button/Button';
+
 import ExtraFeatureContainerStyle from './ExtraFeatureContainer.style';
 
 interface ExtraFeatureContainerProps {

@@ -1,17 +1,19 @@
-import React, {useEffect, useState} from 'react';
-import RootContainer from '../../templates/Common/RootContainer/RootContainer';
-import {RootRouteParamList} from '../../types/router';
-import {PROMOS_SCREEN} from '../../constants/router';
-import Header from '../../components/Header/Header';
-import {ActivityIndicator, FlatList} from 'react-native';
-import HomeScreenStyle from './PromosScreen.style';
-import {apiCall} from '../../helpers/api';
-import {HTTP_METHOD} from '../../types/api';
-import {ENDPOINTS, EXTERNAL_ENDPOINTS} from '../../constants/api';
-import {resourcesImage, resourcesItem} from '../../types/resources';
-import PromoCard from '../../templates/HomeScreen/PromoCard/PromoCard';
+import Header from '@components/Header/Header';
+import {ENDPOINTS, EXTERNAL_ENDPOINTS} from '@constants/api';
+import COLORS from '@constants/color';
+import {PROMOS_SCREEN} from '@constants/router';
+import {HTTP_METHOD} from '@customTypes/api';
+import {resourcesImage, resourcesItem} from '@customTypes/resources';
+import {RootRouteParamList} from '@customTypes/router';
+import {apiCall} from '@helpers/api';
+import {skeletonLoading} from '@helpers/layout';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
-import COLORS from '../../constants/color';
+import HomeScreenStyle from '@screens/HomeScreen/HomeScreen.style';
+import PromosSkeleton from '@skeletons/PromoScreen/PromosSkeleton';
+import RootContainer from '@templates/Common/RootContainer/RootContainer';
+import PromoCard from '@templates/HomeScreen/PromoCard/PromoCard';
+import React, {useEffect, useState} from 'react';
+import {ActivityIndicator, FlatList, ToastAndroid} from 'react-native';
 
 type ScreenProps = BottomTabScreenProps<
   RootRouteParamList,
@@ -75,31 +77,44 @@ function PromosScreen({navigation}: ScreenProps): React.JSX.Element {
     <RootContainer>
       <Header title={'PROMO'} />
 
-      <FlatList
-        data={data}
-        contentContainerStyle={HomeScreenStyle.listContentContainer}
-        onEndReached={() => {
-          if (
-            data.length > 0 &&
-            imageData.length > 0 &&
-            isNotLastPage &&
-            !isLoading
-          ) {
-            setCurrPage(currPage + 1);
-          }
-        }}
-        ListFooterComponent={() => {
-          if (isLoading && isNotLastPage) {
-            return <ActivityIndicator size={'large'} color={COLORS.BLUE} />;
-          }
-          return null;
-        }}
-        renderItem={({item, index}) => {
-          return (
-            <PromoCard imageURL={imageData[index]?.download_url} item={item} />
-          );
-        }}
-      />
+      {skeletonLoading(
+        {
+          content: (
+            <FlatList
+              data={data}
+              contentContainerStyle={HomeScreenStyle.listContentContainer}
+              onEndReached={() => {
+                if (
+                  data.length > 0 &&
+                  imageData.length > 0 &&
+                  isNotLastPage &&
+                  !isLoading
+                ) {
+                  setCurrPage(currPage + 1);
+                }
+              }}
+              ListFooterComponent={() => {
+                if (isLoading && isNotLastPage) {
+                  return (
+                    <ActivityIndicator size={'large'} color={COLORS.BLUE} />
+                  );
+                }
+                return null;
+              }}
+              renderItem={({item, index}) => {
+                return (
+                  <PromoCard
+                    imageURL={imageData[index]?.download_url}
+                    item={item}
+                  />
+                );
+              }}
+            />
+          ),
+          skeletonContent: <PromosSkeleton />,
+        },
+        data.length === 0,
+      )}
     </RootContainer>
   );
 }

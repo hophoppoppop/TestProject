@@ -1,3 +1,6 @@
+import images from '@assets/images';
+import Button from '@components/Button/Button';
+import React from 'react';
 import {
   Image,
   ImageSourcePropType,
@@ -5,10 +8,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
-import Button from '../../../components/Button/Button';
+
 import ProfileItemStyle from './ProfileItem.style';
-import images from '../../../assets/images';
 
 interface ProfileItemProps {
   onPress?: () => void;

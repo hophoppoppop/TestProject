@@ -1,3 +1,4 @@
+import {RootRouteParamList} from '@customTypes/router';
 import {
   DrawerContentComponentProps,
   DrawerItem,
@@ -14,7 +15,6 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import {RootRouteParamList} from '../../customTypes/router';
 import DrawerButtonStyle from './DrawerButton.style';
 
 interface DrawerButtonProps extends DrawerContentComponentProps {

@@ -1,13 +1,14 @@
-import {Alert, ToastAndroid} from 'react-native';
-import {AppDispatch} from '../types/redux';
-import {hideLoading, showLoading} from '../redux/slices/appState';
-import {HTTP_METHOD} from '../types/api';
-import {ENDPOINTS} from '../constants/api';
-import {ASYNCSTORAGE_KEY} from '../constants/asyncstorage';
+import {ENDPOINTS} from '@constants/api';
+import {ASYNCSTORAGE_KEY} from '@constants/asyncstorage';
+import {LOGIN_SCREEN} from '@constants/router';
+import {HTTP_METHOD} from '@customTypes/api';
+import {AppDispatch} from '@customTypes/redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {reset} from './navigation';
-import {LOGIN_SCREEN} from '../constants/router';
+import {hideLoading, showLoading} from '@redux/slices/appState';
+import {Alert, ToastAndroid} from 'react-native';
+
 import {apiCall} from './api';
+import {reset} from './navigation';
 
 export function SignOut(dispatch: AppDispatch) {
   Alert.alert('SIGN OUT', 'Do you want to sign out?', [
@@ -24,12 +25,8 @@ export function SignOut(dispatch: AppDispatch) {
             AsyncStorage.removeItem(ASYNCSTORAGE_KEY.USER_TOKEN);
             reset(LOGIN_SCREEN);
           })
-          .catch(reason => {
-            ToastAndroid.showWithGravity(
-              reason.error || 'Connection error, please try again later!',
-              ToastAndroid.LONG,
-              20,
-            );
+          .catch(err => {
+            console.log(err);
           })
           .finally(() => {
             dispatch(hideLoading());

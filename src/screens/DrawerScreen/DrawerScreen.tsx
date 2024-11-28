@@ -1,33 +1,24 @@
+import images from '@assets/images';
+import DrawerButton from '@components/DrawerButton/DrawerButton';
+import {ENDPOINTS} from '@constants/api';
+import {ASYNCSTORAGE_KEY} from '@constants/asyncstorage';
+import {HOME_SCREEN, LOGIN_SCREEN} from '@constants/router';
+import {HTTP_METHOD} from '@customTypes/api';
+import {RootRouteParamList} from '@customTypes/router';
+import {apiCall} from '@helpers/api';
+import {useAppDispatch, useAppSelector} from '@hooks/redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   DrawerContentComponentProps,
   DrawerContentScrollView,
   DrawerItem,
 } from '@react-navigation/drawer';
+import {hideLoading, showLoading} from '@redux/slices/appState';
+import {getToken, getUserData} from '@redux/slices/user';
+import ExtraFeatureContainer from '@templates/DrawerScreen/ExtraFeatureContainer/ExtraFeatureContainer';
 import React from 'react';
-import {
-  Alert,
-  Image,
-  Text,
-  ToastAndroid,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Alert, Image, Text, ToastAndroid, View} from 'react-native';
 
-import images from '../../assets/images';
-import DrawerButton from '../../components/DrawerButton/DrawerButton';
-import {ENDPOINTS} from '../../constants/api';
-import {ASYNCSTORAGE_KEY} from '../../constants/asyncstorage';
-import COLORS from '../../constants/color';
-import {HOME_SCREEN, LOGIN_SCREEN} from '../../constants/router';
-import {HTTP_METHOD} from '../../customTypes/api';
-import {RootRouteParamList} from '../../customTypes/router';
-import {apiCall} from '../../helpers/api';
-import {useAppDispatch, useAppSelector} from '../../hooks/redux';
-import {hideLoading, showLoading} from '../../redux/slices/appState';
-import {getToken, getUserData} from '../../redux/slices/user';
-import RootContainer from '../../templates/Common/RootContainer/RootContainer';
-import ExtraFeatureContainer from '../../templates/DrawerScreen/ExtraFeatureContainer/ExtraFeatureContainer';
 import DrawerScreenStyle from './DrawerScreen.style';
 
 function DrawerScreen(props: DrawerContentComponentProps): React.JSX.Element {
@@ -94,13 +85,8 @@ function DrawerScreen(props: DrawerContentComponentProps): React.JSX.Element {
                       routes: [{name: LOGIN_SCREEN}],
                     });
                   })
-                  .catch(reason => {
-                    ToastAndroid.showWithGravity(
-                      reason.error ||
-                        'Connection error, please try again later!',
-                      ToastAndroid.LONG,
-                      20,
-                    );
+                  .catch(err => {
+                    console.log(err);
                   })
                   .finally(() => {
                     dispatch(hideLoading());

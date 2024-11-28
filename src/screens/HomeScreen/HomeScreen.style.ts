@@ -1,5 +1,5 @@
+import COLORS from '@constants/color';
 import {StyleSheet} from 'react-native';
-import COLORS from '../../constants/color';
 
 export default StyleSheet.create({
   rootContainer: {
@@ -7,13 +7,15 @@ export default StyleSheet.create({
     paddingVertical: 20,
   },
   mailButton: {
-    flex: 1,
+    height: '100%',
+    aspectRatio: 1,
     alignItems: 'center',
     justifyContent: 'center',
     padding: 7,
   },
   mailIcon: {
-    flex: 1,
+    width: '100%',
+    height: '100%',
   },
   titleContainer: {
     height: '100%',

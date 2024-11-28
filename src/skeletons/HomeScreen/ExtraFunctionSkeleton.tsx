@@ -4,6 +4,7 @@ function ExtraFunctionSkeleton() {
   return (
     <SkeletonPlaceholder borderRadius={4}>
       <SkeletonPlaceholder.Item
+        width={'100%'}
         paddingHorizontal={10}
         flexDirection="row"
         justifyContent="space-between">

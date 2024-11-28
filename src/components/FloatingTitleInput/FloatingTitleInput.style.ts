@@ -1,5 +1,5 @@
+import COLORS from '@constants/color';
 import {StyleSheet} from 'react-native';
-import COLORS from '../../constants/color';
 
 export default StyleSheet.create({
   container: {
@@ -9,6 +9,11 @@ export default StyleSheet.create({
     backgroundColor: COLORS.LIGHT_BLUE,
     borderRadius: 10,
     alignItems: 'center',
+    borderWidth: 1,
+    borderColor: COLORS.WHITE,
+  },
+  containerError: {
+    borderColor: COLORS.RED,
   },
   inputContainer: {
     flexDirection: 'row',

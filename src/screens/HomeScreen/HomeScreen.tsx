@@ -1,4 +1,5 @@
 import images from '@assets/images';
+import Card from '@components/Card/Card';
 import Header from '@components/Header/Header';
 import {ENDPOINTS, EXTERNAL_ENDPOINTS} from '@constants/api';
 import {HOME_SCREEN, PROMOS_SCREEN} from '@constants/router';
@@ -7,24 +8,29 @@ import {resourcesImage, resourcesItem} from '@customTypes/resources';
 import {RootRouteParamList} from '@customTypes/router';
 import {apiCall} from '@helpers/api';
 import {initLogin} from '@helpers/initialize';
+import {skeletonLoading} from '@helpers/layout';
 import {useAppDispatch} from '@hooks/redux';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
+import ExtraFunctionSkeleton from '@skeletons/HomeScreen/ExtraFunctionSkeleton';
+import RecommendationSkeleton from '@skeletons/HomeScreen/RecommendationSkeleton';
+import PromosSkeleton from '@skeletons/PromoScreen/PromosSkeleton';
 import RootContainer from '@templates/Common/RootContainer/RootContainer';
+import BenefitButton from '@templates/HomeScreen/BenefitButton/BenefitButton';
+import CategoryTitle from '@templates/HomeScreen/CategoryTitle/CategoryTitle';
+import PromoCard from '@templates/HomeScreen/PromoCard/PromoCard';
+import RecommendationCard from '@templates/HomeScreen/RecommendationCard/RecommendationCard';
 import {useEffect, useState} from 'react';
 import {
   FlatList,
   Image,
   ScrollView,
   Text,
+  ToastAndroid,
   TouchableOpacity,
   View,
 } from 'react-native';
+
 import HomeScreenStyle from './HomeScreen.style';
-import Card from '@components/Card/Card';
-import BenefitButton from '@templates/HomeScreen/BenefitButton/BenefitButton';
-import CategoryTitle from '@templates/HomeScreen/CategoryTitle/CategoryTitle';
-import RecommendationCard from '@templates/HomeScreen/RecommendationCard/RecommendationCard';
-import PromoCard from '@templates/HomeScreen/PromoCard/PromoCard';
 
 type ScreenProps = BottomTabScreenProps<RootRouteParamList, typeof HOME_SCREEN>;
 
@@ -66,10 +72,14 @@ function HomeScreen({navigation}: ScreenProps): React.JSX.Element {
           },
         },
         isThirdParty: true,
-      }).then(callback => {
-        setImageData(callback);
-        setRecommendationData(callback);
-      });
+      })
+        .then(callback => {
+          setImageData(callback);
+          setRecommendationData(callback);
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
     initData();
     initImageData();
@@ -100,49 +110,75 @@ function HomeScreen({navigation}: ScreenProps): React.JSX.Element {
       <ScrollView
         contentContainerStyle={HomeScreenStyle.scrollViewContentContainer}>
         <Card style={HomeScreenStyle.benefitCardContainer}>
-          <TouchableOpacity style={HomeScreenStyle.pointContainer}>
-            <Image
-              style={HomeScreenStyle.pointImage}
-              source={images.ICON_POINT_HIGHLIGHTED}
-            />
-            <Text style={HomeScreenStyle.pointText}>144 points</Text>
-          </TouchableOpacity>
-          <View style={HomeScreenStyle.otherFunctionContainer}>
-            <BenefitButton icon={images.ICON_COUPON} label={'Coupon'} />
-            <BenefitButton icon={images.ICON_QR} label={'Scan'} />
-          </View>
+          {skeletonLoading(
+            {
+              skeletonContent: <ExtraFunctionSkeleton />,
+              content: (
+                <>
+                  <TouchableOpacity style={HomeScreenStyle.pointContainer}>
+                    <Image
+                      style={HomeScreenStyle.pointImage}
+                      source={images.ICON_POINT_HIGHLIGHTED}
+                    />
+                    <Text style={HomeScreenStyle.pointText}>144 points</Text>
+                  </TouchableOpacity>
+                  <View style={HomeScreenStyle.otherFunctionContainer}>
+                    <BenefitButton icon={images.ICON_COUPON} label={'Coupon'} />
+                    <BenefitButton icon={images.ICON_QR} label={'Scan'} />
+                  </View>
+                </>
+              ),
+            },
+            data.length === 0,
+          )}
         </Card>
         <CategoryTitle label={'Recommendation'} />
-        <FlatList
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          data={recommendationData}
-          contentContainerStyle={
-            HomeScreenStyle.recommendationListContentContainer
-          }
-          renderItem={({item}) => {
-            return <RecommendationCard imageURL={item.download_url} />;
-          }}
-        />
+        {skeletonLoading(
+          {
+            skeletonContent: <RecommendationSkeleton />,
+            content: (
+              <FlatList
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={recommendationData}
+                contentContainerStyle={
+                  HomeScreenStyle.recommendationListContentContainer
+                }
+                renderItem={({item}) => {
+                  return <RecommendationCard imageURL={item.download_url} />;
+                }}
+              />
+            ),
+          },
+          recommendationData.length === 0,
+        )}
         <CategoryTitle
           label={'Promos'}
           onPress={() => {
             navigation.navigate(PROMOS_SCREEN);
           }}
         />
-        <FlatList
-          scrollEnabled={false}
-          data={data}
-          contentContainerStyle={HomeScreenStyle.listContentContainer}
-          renderItem={({item, index}) => {
-            return (
-              <PromoCard
-                imageURL={imageData[index]?.download_url}
-                item={item}
+        {skeletonLoading(
+          {
+            content: (
+              <FlatList
+                scrollEnabled={false}
+                data={data}
+                contentContainerStyle={HomeScreenStyle.listContentContainer}
+                renderItem={({item, index}) => {
+                  return (
+                    <PromoCard
+                      imageURL={imageData[index]?.download_url}
+                      item={item}
+                    />
+                  );
+                }}
               />
-            );
-          }}
-        />
+            ),
+            skeletonContent: <PromosSkeleton />,
+          },
+          data.length === 0,
+        )}
       </ScrollView>
     </RootContainer>
   );

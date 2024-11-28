@@ -1,7 +1,6 @@
+import {RootState, userReducer} from '@customTypes/redux';
+import {userData} from '@customTypes/user';
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-
-import {RootState, userReducer} from '../../customTypes/redux';
-import {userData} from '../../customTypes/user';
 
 const initialState: userReducer = {
   token: '',

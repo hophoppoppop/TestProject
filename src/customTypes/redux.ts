@@ -1,4 +1,5 @@
-import {store} from '../redux/store';
+import {store} from '@redux/store';
+
 import {userData} from './user';
 
 export type userReducer = {

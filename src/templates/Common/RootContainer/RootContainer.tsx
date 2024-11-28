@@ -1,3 +1,7 @@
+import LoaderOverlay from '@components/LoaderOverlay/LoaderOverlay';
+import COLORS from '@constants/color';
+import {useAppDispatch, useAppSelector} from '@hooks/redux';
+import {getIsLoading} from '@redux/slices/appState';
 import React from 'react';
 import {
   ColorValue,
@@ -5,11 +9,8 @@ import {
   StatusBar,
   StatusBarStyle,
 } from 'react-native';
+
 import RootContainerStyle from './RootContainer.style';
-import COLORS from '../../../constants/color';
-import LoaderOverlay from '../../../components/LoaderOverlay/LoaderOverlay';
-import {useAppDispatch, useAppSelector} from '../../../hooks/redux';
-import {getIsLoading} from '../../../redux/slices/appState';
 
 interface RootContainerProps {
   children?: React.ReactNode;

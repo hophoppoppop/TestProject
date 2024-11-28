@@ -1,7 +1,8 @@
-import {Image, ImageSourcePropType, Text, View} from 'react-native';
-import WelcomeSlideShowStyle from './WelcomeSlideShow.style';
+import COLORS from '@constants/color';
 import React from 'react';
-import COLORS from '../../../constants/color';
+import {Image, ImageSourcePropType, Text, View} from 'react-native';
+
+import WelcomeSlideShowStyle from './WelcomeSlideShow.style';
 
 interface WelcomeSlideShowProps {
   imageSource?: ImageSourcePropType;
